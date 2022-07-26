@@ -1,0 +1,7 @@
+[user]
+	name = Martin Dullweber
+	email = martin@dul.li
+[core]
+	autocrlf = true
+[init]
+	defaultBranch = main
