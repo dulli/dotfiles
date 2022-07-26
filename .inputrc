@@ -1,7 +1,9 @@
 # Respect default shortcuts.
 $include /etc/inputrc
 
-## arrow up
+set completion-ignore-case On
+set bell-style none
+
+# Make up and down arrows complete the rest of a command
 "\e[A":history-search-backward
-## arrow down
 "\e[B":history-search-forward
