@@ -60,7 +60,9 @@ fi
 PS1="\D{%H:%M} ${THEME_USER} ${THEME_CWD}${debian_chroot:+($debian_chroot)} ${THEME_SIGN} "
 
 # Setup rust
-. "$HOME/.cargo/env"
+if [ -d "$HOME/.cargo" ]; then
+  . "$HOME/.cargo/env"
+fi
 
 # Set PATH
 export "PATH=$HOME/.local/bin:$PATH"
