@@ -29,7 +29,7 @@ function mans {
 # Colorize LS
 export LS_OPTIONS='--color=auto'
 eval "$(dircolors)"
-alias ls='ls $LS_OPTIONS'
+alias ls='LC_COLLATE=C ls $LS_OPTIONS'
 alias ll='ls $LS_OPTIONS -lhA'
 
 # Colored GCC warnings and errors
@@ -54,10 +54,10 @@ THEME_HOST="${color_host}\h${color_reset}"
 THEME_CWD="${color_cwd}\w${color_reset}"
 
 if [[ -n "${SSH_CLIENT}" ]]; then
-  THEME_USER="${color_host}\h${color_reset}/${color_ssh}\u${color_reset}"
+  THEME_USER="${color_ssh}\u${color_reset}@${color_host}\h${color_reset}"
 fi
 
-PS1="\D{%H:%M} ${THEME_USER} ${THEME_CWD}${debian_chroot:+($debian_chroot)} ${THEME_SIGN} "
+PS1="\D{%H%M} ${THEME_USER}:${THEME_CWD}${debian_chroot:+($debian_chroot)} ${THEME_SIGN} "
 
 # Setup rust
 if [ -d "$HOME/.cargo" ]; then
