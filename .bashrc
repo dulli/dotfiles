@@ -40,6 +40,7 @@ export PROMPT_DIRTRIM=2
 theme_color() {
   echo -en "\[\e[${1}m\]"
 }
+source $HOME/.local/bin/git-prompt.sh
 
 color_sign=$(theme_color 0)
 color_user=$(theme_color 32)
@@ -52,12 +53,14 @@ THEME_SIGN="${color_sign}\$${color_reset}"
 THEME_USER="${color_user}\u${color_reset}"
 THEME_HOST="${color_host}\h${color_reset}"
 THEME_CWD="${color_cwd}\w${color_reset}"
+THEME_GIT_BRANCH=' $(__git_ps1 "(%s) ")'
+THEME_GIT="${color_user}${THEME_GIT_BRANCH}${color_reset}"
 
 if [[ -n "${SSH_CLIENT}" ]]; then
   THEME_USER="${color_ssh}\u${color_reset}@${color_host}\h${color_reset}"
 fi
 
-PS1="\D{%H%M} ${THEME_USER}:${THEME_CWD}${debian_chroot:+($debian_chroot)} ${THEME_SIGN} "
+PS1="\D{%H%M} ${THEME_USER}:${THEME_CWD}${THEME_GIT}${debian_chroot:+($debian_chroot)}${THEME_SIGN} "
 
 # Setup rust
 if [ -d "$HOME/.cargo" ]; then
