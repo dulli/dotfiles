@@ -40,6 +40,7 @@ export PROMPT_DIRTRIM=2
 theme_color() {
   echo -en "\[\e[${1}m\]"
 }
+export GIT_PS1_SHOWDIRTYSTATE=1
 source $HOME/.local/bin/git-prompt.sh
 
 color_sign=$(theme_color 0)
@@ -56,6 +57,9 @@ THEME_CWD="${color_cwd}\w${color_reset}"
 THEME_GIT_BRANCH=' $(__git_ps1 "(%s) ")'
 THEME_GIT="${color_user}${THEME_GIT_BRANCH}${color_reset}"
 
+if [[ $EUID -eq 0 ]]; then
+  THEME_SIGN="${color_sign}#${color_reset}"
+fi
 if [[ -n "${SSH_CLIENT}" ]]; then
   THEME_USER="${color_ssh}\u${color_reset}@${color_host}\h${color_reset}"
 fi
