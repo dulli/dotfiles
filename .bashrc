@@ -17,7 +17,7 @@ shopt -s checkwinsize # Update the values of LINES and COLUMNS.
 shopt -s globstar
 
 # Dotfile alias and completion
-alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dotgit='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 source /usr/share/bash-completion/completions/git
 __git_complete config __git_main
 
