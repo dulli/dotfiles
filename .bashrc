@@ -75,7 +75,9 @@ fi
 PS1="${THEME_TIME} ${THEME_USER}:${THEME_CWD}${THEME_GIT}${debian_chroot:+($debian_chroot)}${THEME_SIGN} "
 
 # Greeting
-echo -e ${THEME_GREETING}
+if [ ! -z "$THEME_GREETING" ]; then
+  echo -e ${THEME_GREETING}
+fi
 
 # Setup rust
 if [ -d "$HOME/.cargo" ]; then
