@@ -32,6 +32,9 @@ eval "$(dircolors -b ~/.dircolors)"
 alias ls='LC_COLLATE=C ls $LS_OPTIONS'
 alias ll='ls $LS_OPTIONS -lhA'
 
+# Always sue htop
+alias top='htop'
+
 # Colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
