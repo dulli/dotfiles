@@ -30,7 +30,7 @@ function mans {
 export LS_OPTIONS='--color=auto'
 eval "$(dircolors -b ~/.dircolors)"
 alias ls='LC_COLLATE=C ls $LS_OPTIONS'
-alias ll='ls $LS_OPTIONS -lhA'
+alias ll='ls $LS_OPTIONS -lha'
 
 # Always sue htop
 alias top='htop'
