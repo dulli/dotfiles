@@ -2,7 +2,7 @@
 	name = Martin Dullweber
 	email = martin@dul.li
 [core]
-	autocrlf = false
+	autocrlf = input
 [init]
 	defaultBranch = main
 [pull]
