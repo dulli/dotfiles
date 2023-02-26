@@ -32,8 +32,11 @@ eval "$(dircolors -b ~/.dircolors)"
 alias ls='LC_COLLATE=C ls $LS_OPTIONS'
 alias ll='ls $LS_OPTIONS -lha'
 
-# Always sue htop
+# Always use htop
 alias top='htop'
+
+# Test lan speed
+alias lanspeed="iperf -c 192.168.188.1 -p 4711"
 
 # Colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
@@ -90,4 +93,5 @@ fi
 # Set PATH
 export "PATH=$HOME/.local/bin:$PATH"
 export GOPATH="$HOME/go"
-export PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
+export FLUTTERPATH="$HOME/flutter"
+export PATH="$GOROOT/bin:$GOPATH/bin:$FLUTTERPATH/bin:$PATH"
