@@ -11,6 +11,7 @@ shopt -s histappend # Append to the history
 HISTCONTROL=ignoreboth # Don't put duplicate lines or lines starting with space in the history.
 HISTSIZE=1000
 HISTFILESIZE=2000
+PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
 # Set shell options
 shopt -s checkwinsize # Update the values of LINES and COLUMNS.
