@@ -35,7 +35,7 @@ alias ll='ls $LS_OPTIONS -lhav'
 
 # Always use htop
 alias top='htop'
-alias nano='micro'
+
 # Test lan speed
 alias lanspeed="iperf -c 192.168.188.1 -p 4711"
 
