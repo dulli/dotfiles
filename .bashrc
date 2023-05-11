@@ -6,6 +6,11 @@ case $- in
       *) return;;
 esac
 
+# Set variables
+is_root=false; [[ $EUID -eq 0 ]] && is_root=true
+is_ssh=false; [[ -n "${SSH_CLIENT}" ]] && is_ssh=true
+is_termux=false; [[ $(ps -ef|grep -c com.termux ) -gt 0 ]] && is_termux=true
+
 # Configure bash history
 shopt -s histappend # Append to the history
 HISTCONTROL=ignoreboth # Don't put duplicate lines or lines starting with space in the history.
@@ -19,8 +24,10 @@ shopt -s globstar
 
 # Dotfile alias and completion
 alias dotgit='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-source /usr/share/bash-completion/completions/git
-__git_complete config __git_main
+if [ "$is_termux" = false ]; then
+  source /usr/share/bash-completion/completions/git
+  __git_complete config __git_main
+fi
 
 # Custom functions
 function mans {
@@ -32,6 +39,10 @@ export LS_OPTIONS='--color=auto --group-directories-first'
 eval "$(dircolors -b ~/.dircolors)"
 alias ls='LC_COLLATE=C ls $LS_OPTIONS'
 alias ll='ls $LS_OPTIONS -lhav'
+
+if [ "$is_termux" = true ]; then
+  alias ll='ls $LS_OPTIONS -gGhav'
+fi
 
 # Always use htop
 alias top='htop'
@@ -71,13 +82,17 @@ THEME_GIT_BRANCH=' $(__git_ps1 "(%s) ")'
 THEME_GIT="${color_user}${THEME_GIT_BRANCH}${color_reset}"
 THEME_GREETING=""
 
-if [[ $EUID -eq 0 ]]; then
+if [ "$is_root" = true ]; then
   THEME_SIGN="${color_sign}#${color_reset}"
 fi
-if [[ -n "${SSH_CLIENT}" ]]; then
+if [ "$is_termux" = true ]; then
+  THEME_USER="${color_user}termux${color_reset}"
+fi
+if [ "$is_ssh" = true ]; then
   THEME_USER="${color_ssh}\u${color_reset}@${color_host}\h${color_reset}"
   THEME_GREETING="Connected to $(uname -n)."
 fi
+
 
 PS1="${THEME_TIME} ${THEME_USER}:${THEME_CWD}${THEME_GIT}${debian_chroot:+($debian_chroot)}${THEME_SIGN} "
 
