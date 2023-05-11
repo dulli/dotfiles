@@ -9,7 +9,7 @@ esac
 # Set variables
 is_root=false; [[ $EUID -eq 0 ]] && is_root=true
 is_ssh=false; [[ -n "${SSH_CLIENT}" ]] && is_ssh=true
-is_termux=false; [[ $(ps -ef|grep -c com.termux ) -gt 0 ]] && is_termux=true
+is_termux=false; [[ $(ps -ef|grep -c com.termux ) -gt 1 ]] && is_termux=true
 
 # Configure bash history
 shopt -s histappend # Append to the history
