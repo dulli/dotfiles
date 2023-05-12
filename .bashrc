@@ -39,7 +39,6 @@ export LS_OPTIONS='--color=auto --group-directories-first'
 eval "$(dircolors -b ~/.dircolors)"
 alias ls='LC_COLLATE=C ls $LS_OPTIONS'
 alias ll='ls $LS_OPTIONS -lhav'
-
 if [ "$is_termux" = true ]; then
   alias ll='ls $LS_OPTIONS -gGhav'
 fi
@@ -49,6 +48,11 @@ alias top='htop'
 
 # Test lan speed
 alias lanspeed="iperf -c 192.168.188.1 -p 4711"
+
+# Add ADB vendor keys on termux
+if [ "$is_termux"=true ]; then
+  alias adb='ADB_VENDOR_KEYS=/data/data/com.termux/files/home/adbfiles/adbkey adb'
+fi
 
 # Colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
@@ -76,6 +80,7 @@ color_reset=$(theme_color 0)
 THEME_SIGN="${color_sign}\$${color_reset}"
 THEME_USER="${color_user}\u${color_reset}"
 THEME_HOST="${color_host}\h${color_reset}"
+THEME_SEP=":"
 THEME_CWD="${color_cwd}\w${color_reset}"
 THEME_TIME="${color_time}\D{%H%M}${color_reset}"
 THEME_GIT_BRANCH=' $(__git_ps1 "(%s) ")'
@@ -86,15 +91,16 @@ if [ "$is_root" = true ]; then
   THEME_SIGN="${color_sign}#${color_reset}"
 fi
 if [ "$is_termux" = true ]; then
-  THEME_USER="${color_user}termux${color_reset}"
+  THEME_USER=""
+  THEME_SEP=""
 fi
 if [ "$is_ssh" = true ]; then
   THEME_USER="${color_ssh}\u${color_reset}@${color_host}\h${color_reset}"
+  THEME_SEP=":"
   THEME_GREETING="Connected to $(uname -n)."
 fi
 
-
-PS1="${THEME_TIME} ${THEME_USER}:${THEME_CWD}${THEME_GIT}${debian_chroot:+($debian_chroot)}${THEME_SIGN} "
+PS1="${THEME_TIME} ${THEME_USER}${THEME_SEP}${THEME_CWD}${THEME_GIT}${debian_chroot:+($debian_chroot)}${THEME_SIGN} "
 
 # Greeting
 if [ ! -z "$THEME_GREETING" ]; then
