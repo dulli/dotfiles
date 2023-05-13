@@ -38,9 +38,10 @@ function mans {
 export LS_OPTIONS='--color=auto --group-directories-first'
 eval "$(dircolors -b ~/.dircolors)"
 alias ls='LC_COLLATE=C ls $LS_OPTIONS'
-alias ll='ls $LS_OPTIONS -lhav'
+alias ll='ls $LS_OPTIONS -lhv'
+alias la='ll -a'
 if [ "$is_termux" = true ]; then
-  alias ll='ls $LS_OPTIONS -gGhav'
+  alias ll='ls $LS_OPTIONS -gGhv'
 fi
 
 # Always use htop
