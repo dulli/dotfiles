@@ -36,12 +36,17 @@ function mans {
 
 # Colorize LS
 export LS_OPTIONS='-v --color=auto --group-directories-first'
+export TREE_OPTIONS='--dirsfirst --filelimit 32 --noreport'
 eval "$(dircolors -b ~/.dircolors)"
 alias ls='LC_COLLATE=C ls $LS_OPTIONS'
 alias ll='ls $LS_OPTIONS -lhv'
 alias la='ll -a'
+alias lt='tree $TREE_OPTIONS'
+alias ltl='lt -pugh'
+alias lta='ltl -a'
 if [ "$is_termux" = true ]; then
   alias ll='ls $LS_OPTIONS -gGhv'
+  alias ltl='lt -ph'
 fi
 
 # Always use htop
