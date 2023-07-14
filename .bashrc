@@ -35,7 +35,7 @@ function mans {
 }
 
 # Colorize LS
-export LS_OPTIONS='-v --color=auto --group-directories-first'
+export LS_OPTIONS='-v --color=auto --group-directories-first --quoting-style=literal'
 export TREE_OPTIONS='--dirsfirst --filelimit 32 --noreport -v'
 eval "$(dircolors -b ~/.dircolors)"
 alias ls='LC_COLLATE=C ls $LS_OPTIONS'
