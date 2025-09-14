@@ -35,19 +35,19 @@ function mans {
 }
 
 # Colorize LS
-export LS_OPTIONS='-v --color=auto --group-directories-first --quoting-style=literal'
-export TREE_OPTIONS='--dirsfirst --filelimit 32 --noreport -v'
-eval "$(dircolors -b ~/.dircolors)"
-alias ls='LC_COLLATE=C ls $LS_OPTIONS'
-alias ll='ls $LS_OPTIONS -lhv'
-alias la='ll -a'
-alias lt='tree $TREE_OPTIONS'
-alias ltl='lt -pugh'
-alias lta='ltl -a'
+export LS_OPTIONS='-v --color=auto --group-directories-first --date=+%Y%m%d-%H%M%S'
+export TREE_OPTIONS=''
+export LL_OPTIONS=''
 if [ "$is_termux" = true ]; then
-  alias ll='ls $LS_OPTIONS -gGhv'
-  alias ltl='lt -ph'
+  export LL_OPTIONS="--blocks=permission,size,date,name $LL_OPTIONS"
 fi
+eval "$(dircolors -b ~/.dircolors)"
+alias ls='LC_COLLATE=C lsd $LS_OPTIONS'
+alias ll='ls -lh $LL_OPTIONS'
+alias la='ll -a'
+alias lt='ls --tree $TREE_OPTIONS'
+alias ltl='lt -lh $LL_OPTIONS'
+alias lta='ltl -a'
 
 # Always use htop
 alias top='htop'
