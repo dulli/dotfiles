@@ -119,7 +119,15 @@ if [ -d "$HOME/.cargo" ]; then
 fi
 
 # Set PATH
-export "PATH=$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export GOPATH="$HOME/go"
 export FLUTTERPATH="$HOME/flutter"
 export PATH="$GOROOT/bin:$GOPATH/bin:$FLUTTERPATH/bin:$PATH"
+
+# Setup fzf and zoxide
+eval "$(fzf --bash)"
+eval "$(zoxide init bash)"
+
+# Setup sessions
+alias tmx="tmux new -A -s tmx"
+alias gui="niri-session"
