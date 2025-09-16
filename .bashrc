@@ -34,14 +34,13 @@ function mans {
   man $1 | less -p "^ +$2"
 }
 
-# Colorize LS
+# LSD aliases
 export LS_OPTIONS='-v --color=auto --group-directories-first --date=+%Y%m%d-%H%M%S'
 export TREE_OPTIONS=''
 export LL_OPTIONS=''
 if [ "$is_termux" = true ]; then
   export LL_OPTIONS="--blocks=permission,size,date,name $LL_OPTIONS"
 fi
-eval "$(dircolors -b ~/.dircolors)"
 alias ls='LC_COLLATE=C lsd $LS_OPTIONS'
 alias ll='ls -lh $LL_OPTIONS'
 alias la='ll -a'
