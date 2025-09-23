@@ -1,0 +1,24 @@
+ #!/bin/env bash
+set -e
+
+function dotgit {
+   /usr/bin/git --git-dir=$HOME/.dotgit/ --work-tree=$HOME $@
+}
+
+case $1 in
+hide)
+  if ! dotgit diff --quiet --exit-code ~/README.md; then
+    echo "Uncommited changes in ~/README.md, won't hide."
+    exit 1
+  fi
+  dotgit update-index --assume-unchanged ~/README.md
+  rm ~/README.md
+  ;;
+unhide)
+  dotgit update-index --no-assume-unchanged ~/README.md
+  dotgit restore ~/README.md
+  ;;
+*)
+  echo unknown command
+  ;;
+esac
