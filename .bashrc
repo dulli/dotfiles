@@ -1,5 +1,3 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -130,3 +128,16 @@ eval "$(zoxide init bash)"
 # Setup sessions
 alias tmx="tmux new -A -s tmx"
 alias gui="niri-session"
+
+# Start ssh-agent
+if [ "$is_termux" = true ]; then
+  export SSH_AUTH_SOCK="$PREFIX"/var/run/ssh-agent.socket
+else
+  if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
+  fi
+  if [ ! -f "$SSH_AUTH_SOCK" ]; then
+    source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+  fi
+fi
+
