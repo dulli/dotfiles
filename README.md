@@ -2,7 +2,7 @@
 
 Install using `wget`:
 ```bash
-wget -qO - https://raw.githubusercontent.com/dulli/dotfiles/main/.local/bin/dotgit-setup | bash
+wget -qO - https://github.com/dulli/dotfiles/blob/main/.local/bin/dotgit-setup?raw=true | bash
 ```
 
 Then manage like any Git repository, using the `dotgit` alias.
