@@ -11,9 +11,9 @@ is_termux=false; [[ $(ps -ef|grep -c com.termux ) -gt 1 ]] && is_termux=true
 
 # Configure bash history
 shopt -s histappend # Append to the history
-HISTCONTROL=ignoreboth # Don't put duplicate lines or lines starting with space in the history.
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTCONTROL=ignorespace # Don't put lines starting with space in the history.
+HISTSIZE=
+HISTFILESIZE=
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
 # Set shell options
