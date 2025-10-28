@@ -28,8 +28,19 @@ if [ "$is_termux" = false ]; then
 fi
 
 # Custom functions
+export EDITOR=hx
 function mans {
   man $1 | less -p "^ +$2"
+}
+function unix() {
+  if [ $# -gt 0 ]; then
+    echo "Arg: $(date -d "@$1")"
+  fi
+  echo "Now: $(date) - $(date +%s)"
+}
+mkcd () {
+  \mkdir -p "$1"
+  cd "$1"
 }
 
 # LSD aliases
