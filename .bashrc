@@ -45,7 +45,7 @@ mkcd () {
 
 # LSD aliases
 export LS_OPTIONS='-v --color=auto --group-directories-first --date=+%Y%m%d-%H%M%S'
-export TREE_OPTIONS=''
+export TREE_OPTIONS='--depth 3'
 export LL_OPTIONS=''
 if [ "$is_termux" = true ]; then
   export LL_OPTIONS="--blocks=permission,size,date,name $LL_OPTIONS"
