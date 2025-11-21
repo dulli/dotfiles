@@ -41,6 +41,14 @@ output "DP-1" {
 output "HDMI-A-2" {
     transform "90"
     background-color "#000000"
+
+    //layout {
+    //    default-column-width { proportion 1.0; }
+    //}
+}
+
+workspace "side" {
+    open-on-output "HDMI-A-2"
 }
 
 // ────────────── Keybindings ──────────────
@@ -50,12 +58,14 @@ binds {
     MOD+SHIFT+ESCAPE                     { show-hotkey-overlay; }
 
     // ─── Applications ───
-    MOD+RETURN                          hotkey-overlay-title="Open Terminal: alacritty" { spawn-sh "foot"; }
-    MOD+SPACE                           hotkey-overlay-title="Open App Launcher: wofi" { spawn-sh "wofi"; }
+    MOD+RETURN                          hotkey-overlay-title="Open Terminal: foot" { spawn-sh "foot"; }
+    MOD+SPACE                           hotkey-overlay-title="Open App Launcher: Noctalia" { spawn-sh "qs -c noctalia-shell ipc call launcher toggle"; }
+    MOD+S				hotkey-overlay-title="Open Control Center: Noctalia" { spawn-sh "qs -c noctalia-shell ipc call controlCenter toggle"; }
     MOD+B                               hotkey-overlay-title="Open Browser: firefox" { spawn-sh "firefox"; }
-    MOD+ALT+L                           hotkey-overlay-title="Lock Screen: swaylock" { spawn-sh "swaylock"; }
+    MOD+ALT+L                           hotkey-overlay-title="Lock Screen: Noctalia" { spawn-sh "qs -c noctalia-shell ipc call lockScreen lock"; }
     MOD+SHIFT+S                         hotkey-overlay-title="Screenshot: flameshot" { spawn-sh "flameshot gui"; }
     MOD+PERIOD                          hotkey-overlay-title="Emojis: flemozi" { spawn-sh "flemozi"; }
+    MOD+V                               hotkey-overlay-title="Clipboard Manager: Noctalia" { spawn-sh "qs -c noctalia-shell ipc call launcher clipboard"; }
 
     // Please choose your own file manager
     MOD+E                             hotkey-overlay-title="File Manager: Nautilus" { spawn-sh "nautilus"; }
@@ -180,9 +190,7 @@ binds {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Miscellaneous#spawn-sh-at-startup
 
     spawn-sh-at-startup "/usr/lib/polkit-kde-authentication-agent-1 &" // Polkit
-    //spawn-sh-at-startup "swww-daemon" // Wallpaper daemon
-    //spawn-sh-at-startup "swww img /usr/share/wallpapers/cachyos-wallpapers/Skyscraper.png" // Set wallpaper
-    spawn-sh-at-startup "waybar" // Launch waybar
+    spawn-at-startup "qs" "-c" "noctalia-shell"
 
     prefer-no-csd // Disable program decorations
     screenshot-path null // Disable screenshot saving
@@ -275,6 +283,14 @@ binds {
         clip-to-geometry true
     }
 
+    layer-rule {
+        match namespace="^quickshell-overview$"
+        place-within-backdrop true
+    }
+
+    debug {
+        honor-xdg-activation-with-invalid-serial
+    }
 // ────────────── Environment Variables ──────────────
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Miscellaneous#environment
 
@@ -285,6 +301,7 @@ binds {
         QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
         XDG_SESSION_TYPE "wayland"
         XDG_CURRENT_DESKTOP "niri"
+	QS_ICON_THEME "Colloid-Teal-Dark"
     }
 
     hotkey-overlay {
