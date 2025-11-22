@@ -63,7 +63,6 @@ binds {
     MOD+S				hotkey-overlay-title="Open Control Center: Noctalia" { spawn-sh "qs -c noctalia-shell ipc call controlCenter toggle"; }
     MOD+B                               hotkey-overlay-title="Open Browser: firefox" { spawn-sh "firefox"; }
     MOD+ALT+L                           hotkey-overlay-title="Lock Screen: Noctalia" { spawn-sh "qs -c noctalia-shell ipc call lockScreen lock"; }
-    MOD+SHIFT+S                         hotkey-overlay-title="Screenshot: flameshot" { spawn-sh "flameshot gui"; }
     MOD+PERIOD                          hotkey-overlay-title="Emojis: flemozi" { spawn-sh "flemozi"; }
     MOD+V                               hotkey-overlay-title="Clipboard Manager: Noctalia" { spawn-sh "qs -c noctalia-shell ipc call launcher clipboard"; }
 
@@ -171,9 +170,9 @@ binds {
     MOD+W                               { toggle-column-tabbed-display; }
 
     // ─── Screenshots ───
-    CTRL+SHIFT+1                        { screenshot; }
-    CTRL+SHIFT+2                        { screenshot-screen; }
-    CTRL+SHIFT+3                        { screenshot-window; }
+    MOD+SHIFT+S                         { screenshot show-pointer=false; }
+    PRINT                               { screenshot-screen; }
+    ALT+PRINT                           { screenshot-window; }
 
     // ─── Emergency Escape Key ───
     // Use this when a fullscreen app blocks your keybinds.
