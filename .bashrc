@@ -8,6 +8,7 @@ esac
 is_root=false; [[ $EUID -eq 0 ]] && is_root=true
 is_ssh=false; [[ -n "${SSH_CLIENT}" ]] && is_ssh=true
 is_termux=false; [[ $(ps -ef|grep -c com.termux ) -gt 1 ]] && is_termux=true
+is_cachyos=false; [[ $(grep -q "ID=cachyos" /etc/os-release 2> /dev/null) ]] && is_cachyos = true
 
 # Configure bash history
 shopt -s histappend # Append to the history
@@ -62,6 +63,13 @@ alias top='htop'
 
 # Test lan speed
 alias lanspeed="iperf -c 192.168.188.1 -p 4711"
+
+# CachyOS specific aliases
+if [ "$is_cachyos"=true ]; then
+  alias hx="helix"
+  alias boot-windows="systemctl reboot --boot-loader-entry=auto-windows"
+  alias boot-uefi="systemctl reboot --firmware-setup"
+fi
 
 # Add ADB vendor keys on termux
 if [ "$is_termux"=true ]; then
