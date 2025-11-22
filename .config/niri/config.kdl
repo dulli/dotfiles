@@ -117,6 +117,9 @@ binds {
     MOD+SHIFT+CTRL+UP                   { move-column-to-monitor-up; }
     MOD+SHIFT+CTRL+DOWN                 { move-column-to-monitor-down; }
 
+    ALT+TAB                             { spawn "niri-switch"; }
+    ALT+SHIFT+TAB                       { spawn "niri-switch" "--previous"; }
+        
     // ─── Workspace Switching ───
     MOD+WHEELSCROLLDOWN                 cooldown-ms=150 { focus-workspace-down; }
     MOD+WHEELSCROLLUP                   cooldown-ms=150 { focus-workspace-up; }
@@ -190,6 +193,7 @@ binds {
 
     spawn-sh-at-startup "/usr/lib/polkit-kde-authentication-agent-1 &" // Polkit
     spawn-at-startup "qs" "-c" "noctalia-shell"
+    spawn-at-startup "niri-switch-daemon"
 
     prefer-no-csd // Disable program decorations
     screenshot-path null // Disable screenshot saving
