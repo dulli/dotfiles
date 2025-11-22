@@ -130,7 +130,7 @@ if [ ! -z "$THEME_GREETING" ]; then
 fi
 
 # Setup rust
-if [ -d "$HOME/.cargo" ]; then
+if [ -d "$HOME/.cargo" ] && [ -f  "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"
 fi
 
