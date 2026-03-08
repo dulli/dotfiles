@@ -42,9 +42,9 @@ output "HDMI-A-2" {
     transform "90"
     background-color "#000000"
 
-    //layout {
-    //    default-column-width { proportion 1.0; }
-    //}
+    layout {
+       default-column-width { proportion 1.0; }
+    }
 }
 
 workspace "side" {
@@ -63,7 +63,7 @@ binds {
     MOD+S				hotkey-overlay-title="Open Control Center: Noctalia" { spawn-sh "qs -c noctalia-shell ipc call controlCenter toggle"; }
     MOD+B                               hotkey-overlay-title="Open Browser: firefox" { spawn-sh "firefox"; }
     MOD+ALT+L                           hotkey-overlay-title="Lock Screen: Noctalia" { spawn-sh "qs -c noctalia-shell ipc call lockScreen lock"; }
-    MOD+PERIOD                          hotkey-overlay-title="Emojis: flemozi" { spawn-sh "flemozi"; }
+    MOD+PERIOD                          hotkey-overlay-title="Emojis: Noctalia" { spawn-sh "qs -c noctalia-shell ipc call launcher emoji"; }
     MOD+V                               hotkey-overlay-title="Clipboard Manager: Noctalia" { spawn-sh "qs -c noctalia-shell ipc call launcher clipboard"; }
 
     // Please choose your own file manager
@@ -83,7 +83,9 @@ binds {
 
     // ─── Window Movement and Focus ───
     MOD+Q                               { close-window; }
-
+    MOD+R                               { switch-preset-column-width; }
+    MOD+SHIFT+R                         { switch-preset-window-height; }
+    
     MOD+LEFT                            { focus-column-left; }
     MOD+H                               { focus-column-left; }
     MOD+RIGHT                           { focus-column-right; }
@@ -94,9 +96,10 @@ binds {
     MOD+J                               { focus-window-down; }
 
     MOD+CTRL+LEFT                       { move-column-left; }
-    MOD+CTRL+H                          { move-column-left; }
+    MOD+CTRL+H                          { move-column-left-or-to-monitor-left; }
+    MOD+ALT+H                           { consume-or-expel-window-left; }
     MOD+CTRL+RIGHT                      { move-column-right; }
-    MOD+CTRL+L                          { move-column-right; }
+    MOD+CTRL+L                          { move-column-right-or-to-monitor-right; }
     MOD+CTRL+UP                         { move-window-up; }
     MOD+CTRL+K                          { move-window-up; }
     MOD+CTRL+DOWN                       { move-window-down; }
@@ -203,12 +206,20 @@ binds {
 
     layout {
         gaps 8 // Gap between windows
-        center-focused-column "never" // Don’t auto-center focused column
+        center-focused-column "on-overflow"
 
         preset-column-widths {
             proportion 0.33333
             proportion 0.5
             proportion 0.66667
+        }
+        default-column-width { proportion 0.66667; }
+
+        preset-window-heights {
+            proportion 0.25
+            proportion 0.5
+            proportion 0.75
+            proportion 1.0
         }
 
         focus-ring {
@@ -282,6 +293,12 @@ binds {
     }
 
     window-rule {
+        match app-id="foot"
+        default-window-height { proportion 0.5; }
+        default-column-width { proportion 0.33333; }
+    }
+
+    window-rule {
         geometry-corner-radius 5 // Set every window radius to 20
         clip-to-geometry true
     }
@@ -298,13 +315,13 @@ binds {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Miscellaneous#environment
 
     environment {
-        DISPLAY ":1"
+        DISPLAY ":0"
         ELECTRON_OZONE_PLATFORM_HINT "auto"
-        QT_QPA_PLATFORM "wayland"
+        QT_QPA_PLATFORM "wayland;xcb"
         QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
         XDG_SESSION_TYPE "wayland"
         XDG_CURRENT_DESKTOP "niri"
-	QS_ICON_THEME "Colloid-Teal-Dark"
+        QS_ICON_THEME "Colloid-Teal-Dark"
     }
 
     hotkey-overlay {
