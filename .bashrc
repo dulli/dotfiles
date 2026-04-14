@@ -173,3 +173,9 @@ else
   fi
 fi
 
+export HOMEBREW_NO_ANALYTICS=1
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# opencode
+export PATH=/home/martin/.opencode/bin:$PATH
+alias oc="opencode"
