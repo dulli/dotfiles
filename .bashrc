@@ -16,7 +16,7 @@ shopt -s histappend # Append to the history
 HISTCONTROL=ignorespace # Don't put lines starting with space in the history.
 HISTSIZE=-1
 HISTFILESIZE=-1
-PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
+PROMPT_COMMAND="history -a$PROMPT_COMMAND"
 
 # Set shell options
 shopt -s checkwinsize # Update the values of LINES and COLUMNS.
@@ -71,21 +71,19 @@ alias lt='ls --tree $TREE_OPTIONS'
 alias ltl='lt -lh $LL_OPTIONS'
 alias lta='ltl -a'
 
-# Always use htop
 alias top='htop'
-
-# Test lan speed
+alias oc="opencode"
 alias lanspeed="iperf -c 192.168.188.1 -p 4711"
 
 # CachyOS specific aliases
-if [ "$is_cachyos"=true ]; then
+if [ "$is_cachyos" = true ]; then
   alias hx="helix"
   alias boot-windows="systemctl reboot --boot-loader-entry=auto-windows"
   alias boot-uefi="systemctl reboot --firmware-setup"
 fi
 
 # Add ADB vendor keys on termux
-if [ "$is_termux"=true ]; then
+if [ "$is_termux" = true ]; then
   alias adb='ADB_VENDOR_KEYS=/data/data/com.termux/files/home/adbfiles/adbkey adb'
 fi
 
@@ -173,9 +171,13 @@ else
   fi
 fi
 
-export HOMEBREW_NO_ANALYTICS=1
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-# opencode
-export PATH=/home/martin/.opencode/bin:$PATH
-alias oc="opencode"
+if [ "$is_termux" = true ]; then
+  export PATH=$PREFIX/bin:$PATH
+  export PATH=/data/data/com.termux/files/home/.opencode/bin:$PATH
+else
+  export HOMEBREW_NO_ANALYTICS=1
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+  export PATH=/home/martin/.opencode/bin:$PATH
+fi
