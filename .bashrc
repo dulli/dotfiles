@@ -1,3 +1,4 @@
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -13,8 +14,8 @@ is_cachyos=false; [[ $(grep -q "ID=cachyos" /etc/os-release 2> /dev/null) ]] && 
 # Configure bash history
 shopt -s histappend # Append to the history
 HISTCONTROL=ignorespace # Don't put lines starting with space in the history.
-HISTSIZE=
-HISTFILESIZE=
+HISTSIZE=-1
+HISTFILESIZE=-1
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
 # Set shell options
