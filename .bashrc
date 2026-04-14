@@ -44,6 +44,18 @@ mkcd () {
   \mkdir -p "$1"
   cd "$1"
 }
+dotenv() {
+    local env_file="${1:-.env}"
+
+    if [ -f "$env_file" ]; then
+        set -a
+        source "$env_file"
+        set +a
+    else
+        echo "Error: $env_file not found" >&2
+        return 1
+    fi
+}
 
 # LSD aliases
 export LS_OPTIONS='-v --color=auto --group-directories-first --date=+%Y%m%d-%H%M%S'
